@@ -1,0 +1,35 @@
+<svg width="1440" height="2400" viewBox="0 0 1440 2400" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #333; }
+    .label { font-family: Arial, sans-serif; font-size: 14px; fill: #555; }
+    .small { font-family: Arial, sans-serif; font-size: 12px; fill: #777; }
+  </style>
+
+  <rect width="1440" height="2400" fill="#F8F8F8"/>
+
+  <!-- Title -->
+  <text x="40" y="60" class="title">阅读页 / Reader Page</text>
+
+  <!-- Floating Right Toolbar -->
+  <g opacity="0.9">
+    <rect x="1320" y="150" width="80" height="260" fill="#FFFFFF" stroke="#CCCCCC" rx="12"/>
+    <text x="1345" y="200" class="small">目录</text>
+    <text x="1345" y="250" class="small">亮度</text>
+    <text x="1345" y="300" class="small">夜间</text>
+    <text x="1345" y="350" class="small">举报</text>
+  </g>
+
+  <!-- Content Images -->
+  <rect x="200" y="120" width="1040" height="800" fill="#FFFFFF" stroke="#CCCCCC"/>
+  <text x="640" y="520" text-anchor="middle" class="small">IMAGE 1</text>
+
+  <rect x="200" y="960" width="1040" height="800" fill="#FFFFFF" stroke="#CCCCCC"/>
+  <text x="640" y="1360" text-anchor="middle" class="small">IMAGE 2</text>
+
+  <rect x="200" y="1800" width="1040" height="800" fill="#FFFFFF" stroke="#CCCCCC"/>
+  <text x="640" y="2200" text-anchor="middle" class="small">IMAGE 3</text>
+
+  <!-- Bottom Next Chapter -->
+  <rect x="540" y="2300" width="360" height="60" fill="#FFFFFF" stroke="#333" rx="8"/>
+  <text x="620" y="2340" class="label">下一话 / Next Chapter</text>
+</svg>

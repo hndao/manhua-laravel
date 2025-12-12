@@ -1,0 +1,167 @@
+<svg width="1440" height="2200" viewBox="0 0 1440 2200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .section-title { font-family: Arial, sans-serif; font-size: 18px; fill: #333333; font-weight: bold; }
+    .label { font-family: Arial, sans-serif; font-size: 12px; fill: #555555; }
+    .small-label { font-family: Arial, sans-serif; font-size: 11px; fill: #777777; }
+  </style>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1440" height="2200" fill="#F8F8F8"/>
+
+  <!-- HEADER -->
+  <g id="header">
+    <rect x="0" y="0" width="1440" height="80" fill="#FFFFFF" stroke="#DDDDDD"/>
+    <!-- Logo -->
+    <rect x="40" y="20" width="100" height="40" fill="#FFFFFF" stroke="#BBBBBB"/>
+    <text x="50" y="45" class="label">LOGO</text>
+
+    <!-- Nav items -->
+    <text x="180" y="48" class="label">首页</text>
+    <text x="230" y="48" class="label">排行榜</text>
+    <text x="300" y="48" class="label">分类</text>
+    <text x="350" y="48" class="label">漫说</text>
+    <text x="400" y="48" class="label">IP专区</text>
+
+    <!-- Search bar -->
+    <rect x="900" y="20" width="300" height="40" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+    <text x="910" y="45" class="small-label">Search...</text>
+
+    <!-- Login / User -->
+    <rect x="1220" y="20" width="80" height="40" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+    <text x="1235" y="45" class="small-label">登录</text>
+  </g>
+
+  <!-- HERO / BANNER -->
+  <g id="hero-banner">
+    <rect x="40" y="100" width="1360" height="320" fill="#FFFFFF" stroke="#DDDDDD"/>
+    <text x="60" y="130" class="section-title">BANNER CAROUSEL</text>
+    <!-- Left arrow -->
+    <rect x="60" y="230" width="40" height="60" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+    <text x="75" y="265" class="label">&lt;</text>
+    <!-- Right arrow -->
+    <rect x="1330" y="230" width="40" height="60" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+    <text x="1345" y="265" class="label">&gt;</text>
+    <!-- Dots -->
+    <circle cx="680" cy="400" r="4" fill="#BBBBBB"/>
+    <circle cx="700" cy="400" r="4" fill="#DDDDDD"/>
+    <circle cx="720" cy="400" r="4" fill="#DDDDDD"/>
+  </g>
+
+  <!-- SECTION: EDITOR PICKS -->
+  <g id="editor-picks">
+    <text x="40" y="470" class="section-title">编辑推荐 / Editor Picks</text>
+    <rect x="40" y="480" width="1360" height="260" fill="#FFFFFF" stroke="#DDDDDD"/>
+
+    <!-- 6 items -->
+    <!-- Item 1 -->
+    <rect x="60" y="510" width="180" height="200" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="65" y="725" class="small-label">Title 1</text>
+    <!-- Item 2 -->
+    <rect x="260" y="510" width="180" height="200" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="265" y="725" class="small-label">Title 2</text>
+    <!-- Item 3 -->
+    <rect x="460" y="510" width="180" height="200" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="465" y="725" class="small-label">Title 3</text>
+    <!-- Item 4 -->
+    <rect x="660" y="510" width="180" height="200" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="665" y="725" class="small-label">Title 4</text>
+    <!-- Item 5 -->
+    <rect x="860" y="510" width="180" height="200" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="865" y="725" class="small-label">Title 5</text>
+    <!-- Item 6 -->
+    <rect x="1060" y="510" width="180" height="200" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="1065" y="725" class="small-label">Title 6</text>
+  </g>
+
+  <!-- SECTION: HOT SERIAL COMICS -->
+  <g id="hot-serials">
+    <text x="40" y="780" class="section-title">热门连载 / Hot Serials</text>
+    <rect x="40" y="790" width="1360" height="340" fill="#FFFFFF" stroke="#DDDDDD"/>
+
+    <!-- Grid 2 rows × 6 columns (only frames) -->
+    <!-- Row 1 -->
+    <rect x="60" y="820" width="160" height="220" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <rect x="260" y="820" width="160" height="220" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <rect x="460" y="820" width="160" height="220" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <rect x="660" y="820" width="160" height="220" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <rect x="860" y="820" width="160" height="220" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <rect x="1060" y="820" width="160" height="220" fill="#FFFFFF" stroke="#CCCCCC"/>
+
+    <!-- Row 2 (just label placeholders) -->
+    <text x="70" y="1060" class="small-label">Item 1</text>
+    <text x="270" y="1060" class="small-label">Item 2</text>
+    <text x="470" y="1060" class="small-label">Item 3</text>
+    <text x="670" y="1060" class="small-label">Item 4</text>
+    <text x="870" y="1060" class="small-label">Item 5</text>
+    <text x="1070" y="1060" class="small-label">Item 6</text>
+  </g>
+
+  <!-- SECTION: DAILY UPDATES -->
+  <g id="daily-updates">
+    <text x="40" y="1160" class="section-title">每日更新 / Daily Updates</text>
+    <rect x="40" y="1170" width="1360" height="360" fill="#FFFFFF" stroke="#DDDDDD"/>
+
+    <!-- 6 list rows (example) -->
+    <!-- Row template: thumbnail + title + chapter + time -->
+    <!-- Row 1 -->
+    <rect x="60" y="1200" width="90" height="120" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="170" y="1220" class="label">Comic Title 1</text>
+    <text x="170" y="1240" class="small-label">Latest Chapter</text>
+    <text x="170" y="1260" class="small-label">Update Time</text>
+
+    <!-- Row 2 -->
+    <rect x="60" y="1340" width="90" height="120" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="170" y="1360" class="label">Comic Title 2</text>
+    <text x="170" y="1380" class="small-label">Latest Chapter</text>
+    <text x="170" y="1400" class="small-label">Update Time</text>
+
+    <!-- You can duplicate rows in Figma if cần thêm -->
+  </g>
+
+  <!-- SECTION: RANKINGS -->
+  <g id="rankings">
+    <text x="40" y="1580" class="section-title">排行榜 / Rankings</text>
+    <rect x="40" y="1590" width="1360" height="380" fill="#FFFFFF" stroke="#DDDDDD"/>
+
+    <!-- Tabs -->
+    <rect x="60" y="1610" width="80" height="30" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+    <text x="80" y="1630" class="small-label">综合榜</text>
+
+    <rect x="150" y="1610" width="80" height="30" fill="#F5F5F5" stroke="#CCCCCC" rx="4"/>
+    <text x="170" y="1630" class="small-label">男生榜</text>
+
+    <rect x="240" y="1610" width="80" height="30" fill="#F5F5F5" stroke="#CCCCCC" rx="4"/>
+    <text x="260" y="1630" class="small-label">女生榜</text>
+
+    <rect x="330" y="1610" width="80" height="30" fill="#F5F5F5" stroke="#CCCCCC" rx="4"/>
+    <text x="350" y="1630" class="small-label">新作榜</text>
+
+    <!-- List Top 5 -->
+    <!-- Item 1 -->
+    <text x="70" y="1670" class="label">1.</text>
+    <rect x="90" y="1650" width="70" height="90" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="170" y="1670" class="label">Title 1</text>
+    <text x="170" y="1690" class="small-label">Views 1.2M</text>
+
+    <!-- Item 2 -->
+    <text x="70" y="1770" class="label">2.</text>
+    <rect x="90" y="1750" width="70" height="90" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="170" y="1770" class="label">Title 2</text>
+    <text x="170" y="1790" class="small-label">Views 980K</text>
+
+    <!-- Item 3 -->
+    <text x="70" y="1870" class="label">3.</text>
+    <rect x="90" y="1850" width="70" height="90" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="170" y="1870" class="label">Title 3</text>
+    <text x="170" y="1890" class="small-label">Views 850K</text>
+  </g>
+
+  <!-- FOOTER -->
+  <g id="footer">
+    <rect x="0" y="1980" width="1440" height="220" fill="#FFFFFF" stroke="#DDDDDD"/>
+    <text x="40" y="2015" class="label">Footer Links</text>
+    <text x="40" y="2040" class="small-label">关于我们  |  联系方式  |  使用条款  |  隐私政策</text>
+    <rect x="1200" y="2010" width="120" height="120" fill="#FFFFFF" stroke="#CCCCCC"/>
+    <text x="1215" y="2075" class="small-label">APP QR</text>
+  </g>
+</svg>

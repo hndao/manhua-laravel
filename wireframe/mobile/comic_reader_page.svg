@@ -1,0 +1,43 @@
+<svg width="375" height="1400" viewBox="0 0 375 1400" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #333; }
+    .label { font-family: Arial, sans-serif; font-size: 11px; fill: #555; }
+    .small { font-family: Arial, sans-serif; font-size: 10px; fill: #777; }
+  </style>
+
+  <rect width="375" height="1400" fill="#F8F8F8"/>
+
+  <!-- Top status bar placeholder -->
+  <rect x="0" y="0" width="375" height="24" fill="#FFFFFF"/>
+
+  <!-- Reader header (tap to show/hide) -->
+  <rect x="0" y="24" width="375" height="40" fill="#FFFFFF" stroke="#DDDDDD"/>
+  <text x="16" y="48" class="small">漫画标题 Title...</text>
+  <text x="320" y="48" class="small">目录</text>
+
+  <!-- Comic images -->
+  <rect x="12" y="76" width="351" height="520" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="180" y="340" text-anchor="middle" class="small">IMAGE 1</text>
+
+  <rect x="12" y="610" width="351" height="520" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="180" y="875" text-anchor="middle" class="small">IMAGE 2</text>
+
+  <!-- Bottom toolbar (fixed style) -->
+  <rect x="0" y="1250" width="375" height="150" fill="#FFFFFF" stroke="#DDDDDD"/>
+
+  <!-- Progress / slider -->
+  <rect x="24" y="1265" width="327" height="4" fill="#EEEEEE" rx="2"/>
+  <rect x="24" y="1265" width="163" height="4" fill="#CCCCCC" rx="2"/>
+  <circle cx="187" cy="1267" r="6" fill="#CCCCCC"/>
+
+  <!-- Buttons row -->
+  <text x="30" y="1295" class="small">上一话</text>
+  <text x="170" y="1295" class="small">目录</text>
+  <text x="300" y="1295" class="small">下一话</text>
+
+  <!-- Mode row -->
+  <text x="30" y="1330" class="small">亮度</text>
+  <text x="120" y="1330" class="small">夜间</text>
+  <text x="210" y="1330" class="small">自动滚动</text>
+  <text x="310" y="1330" class="small">设置</text>
+</svg>

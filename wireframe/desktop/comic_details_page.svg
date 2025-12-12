@@ -1,0 +1,77 @@
+<svg width="1440" height="2000" viewBox="0 0 1440 2000" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #333; }
+    .label { font-family: Arial, sans-serif; font-size: 14px; fill: #555; }
+    .small { font-family: Arial, sans-serif; font-size: 12px; fill: #777; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1440" height="2000" fill="#F7F7F7"/>
+
+  <!-- Title Section -->
+  <text x="40" y="60" class="title">作品详情页 / Manga Detail Page</text>
+
+  <!-- Top Information Block -->
+  <rect x="40" y="100" width="1360" height="360" fill="#FFFFFF" stroke="#DDDDDD"/>
+
+  <!-- Cover -->
+  <rect x="60" y="130" width="260" height="320" fill="#FFFFFF" stroke="#CCCCCC"/>
+  <text x="130" y="305" class="small">Cover</text>
+
+  <!-- Comic Info Right -->
+  <text x="360" y="160" class="title">漫画标题 Title of Manga</text>
+  <text x="360" y="200" class="label">作者: Author Name</text>
+  <text x="360" y="230" class="label">类型: 热血 / 冒险 / 奇幻</text>
+  <text x="360" y="260" class="label">状态: 连载中 (Ongoing)</text>
+
+  <!-- Intro -->
+  <rect x="360" y="290" width="1000" height="120" fill="#FAFAFA" stroke="#EEEEEE"/>
+  <text x="370" y="315" class="small">简介：This is the manga introduction summary text...</text>
+
+  <!-- Action Buttons -->
+  <rect x="360" y="330" width="160" height="40" fill="#FFFFFF" stroke="#333" rx="6"/>
+  <text x="385" y="357" class="small">开始阅读 / Start Reading</text>
+
+  <rect x="540" y="330" width="160" height="40" fill="#FFFFFF" stroke="#999" rx="6"/>
+  <text x="580" y="357" class="small">收藏 / Bookmark</text>
+
+  <!-- Chapter List Section -->
+  <text x="40" y="520" class="title">章节列表 / Chapters</text>
+  <rect x="40" y="540" width="1360" height="1300" fill="#FFFFFF" stroke="#DDDDDD"/>
+
+  <!-- Chapter Grid (3 columns × many rows) -->
+  <!-- Row 1 -->
+  <rect x="60" y="580" width="400" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="6"/>
+  <text x="80" y="625" class="label">第 1 话 / Chapter 1</text>
+
+  <rect x="500" y="580" width="400" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="6"/>
+  <text x="520" y="625" class="label">第 2 话 / Chapter 2</text>
+
+  <rect x="940" y="580" width="400" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="6"/>
+  <text x="960" y="625" class="label">第 3 话 / Chapter 3</text>
+
+  <!-- Row 2 -->
+  <rect x="60" y="680" width="400" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="6"/>
+  <text x="80" y="725" class="label">第 4 话 / Chapter 4</text>
+
+  <rect x="500" y="680" width="400" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="6"/>
+  <text x="520" y="725" class="label">第 5 话 / Chapter 5</text>
+
+  <rect x="940" y="680" width="400" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="6"/>
+  <text x="960" y="725" class="label">第 6 话 / Chapter 6</text>
+
+  <!-- Row 3 -->
+  <rect x="60" y="780" width="400" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="6"/>
+  <text x="80" y="825" class="label">第 7 话 / Chapter 7</text>
+
+  <rect x="500" y="780" width="400" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="6"/>
+  <text x="520" y="825" class="label">第 8 话 / Chapter 8</text>
+
+  <rect x="940" y="780" width="400" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="6"/>
+  <text x="960" y="825" class="label">第 9 话 / Chapter 9</text>
+
+  <!-- Pagination Placeholder -->
+  <rect x="640" y="1880" width="160" height="40" fill="#FFFFFF" stroke="#333" rx="6"/>
+  <text x="690" y="1905" class="small">Next</text>
+
+</svg>

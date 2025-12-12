@@ -1,0 +1,50 @@
+<svg width="768" height="1400" viewBox="0 0 768 1400" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #333; }
+    .label { font-family: Arial, sans-serif; font-size: 12px; fill: #555; }
+    .small { font-family: Arial, sans-serif; font-size: 11px; fill: #777; }
+  </style>
+
+  <rect width="768" height="1400" fill="#F8F8F8"/>
+
+  <!-- Top header -->
+  <rect x="0" y="0" width="768" height="48" fill="#FFFFFF" stroke="#DDDDDD"/>
+  <text x="24" y="30" class="small">返回</text>
+  <text x="360" y="30" text-anchor="middle" class="small">漫画标题 Title...</text>
+  <text x="700" y="30" class="small">目录</text>
+
+  <!-- Comic images -->
+  <rect x="64" y="64" width="640" height="520" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="384" y="324" text-anchor="middle" class="small">IMAGE 1</text>
+
+  <rect x="64" y="604" width="640" height="520" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="384" y="864" text-anchor="middle" class="small">IMAGE 2</text>
+
+  <!-- Floating right toolbar -->
+  <g opacity="0.9">
+    <rect x="690" y="120" width="60" height="220" fill="#FFFFFF" stroke="#CCCCCC" rx="12"/>
+    <text x="703" y="150" class="small">目录</text>
+    <text x="703" y="185" class="small">亮度</text>
+    <text x="703" y="220" class="small">夜间</text>
+    <text x="703" y="255" class="small">设置</text>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="1200" width="768" height="200" fill="#FFFFFF" stroke="#DDDDDD"/>
+
+  <!-- Progress -->
+  <rect x="80" y="1215" width="608" height="6" fill="#EEEEEE" rx="3"/>
+  <rect x="80" y="1215" width="304" height="6" fill="#CCCCCC" rx="3"/>
+  <circle cx="384" cy="1218" r="7" fill="#CCCCCC"/>
+
+  <!-- Buttons row -->
+  <text x="120" y="1250" class="small">上一话</text>
+  <text x="360" y="1250" class="small" text-anchor="middle">目录</text>
+  <text x="640" y="1250" class="small" text-anchor="middle">下一话</text>
+
+  <!-- Mode row -->
+  <text x="120" y="1290" class="small">亮度</text>
+  <text x="220" y="1290" class="small">夜间模式</text>
+  <text x="360" y="1290" class="small">自动滚动</text>
+  <text x="530" y="1290" class="small">阅读设置</text>
+</svg>

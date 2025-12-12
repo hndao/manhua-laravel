@@ -1,0 +1,114 @@
+<svg width="375" height="1600" viewBox="0 0 375 1600" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #333; }
+    .label { font-family: Arial, sans-serif; font-size: 11px; fill: #555; }
+    .small { font-family: Arial, sans-serif; font-size: 10px; fill: #777; }
+  </style>
+
+  <rect width="375" height="1600" fill="#F7F7F7"/>
+
+  <!-- HEADER -->
+  <rect x="0" y="0" width="375" height="56" fill="#FFFFFF" stroke="#DDDDDD"/>
+  <rect x="12" y="12" width="80" height="32" fill="#FFFFFF" stroke="#CCCCCC"/>
+  <text x="20" y="33" class="small">LOGO</text>
+
+  <!-- Nav icon (hamburger) -->
+  <rect x="340" y="18" width="24" height="20" fill="#FFFFFF" stroke="#CCCCCC" rx="2"/>
+  <line x1="344" y1="23" x2="360" y2="23" stroke="#999" stroke-width="1.2"/>
+  <line x1="344" y1="28" x2="360" y2="28" stroke="#999" stroke-width="1.2"/>
+  <line x1="344" y1="33" x2="360" y2="33" stroke="#999" stroke-width="1.2"/>
+
+  <!-- Search bar -->
+  <rect x="12" y="64" width="351" height="32" fill="#FFFFFF" stroke="#CCCCCC" rx="16"/>
+  <text x="22" y="84" class="small">Search...</text>
+
+  <!-- BANNER CAROUSEL -->
+  <text x="12" y="116" class="title">Banner</text>
+  <rect x="12" y="124" width="351" height="160" fill="#FFFFFF" stroke="#DDDDDD" rx="8"/>
+  <circle cx="170" cy="290" r="3" fill="#BBBBBB"/>
+  <circle cx="185" cy="290" r="3" fill="#DDDDDD"/>
+  <circle cx="200" cy="290" r="3" fill="#DDDDDD"/>
+
+  <!-- SECTION: Editor Picks -->
+  <text x="12" y="330" class="title">编辑推荐 / Editor Picks</text>
+  <rect x="12" y="340" width="351" height="190" fill="#FFFFFF" stroke="#DDDDDD" rx="8"/>
+
+  <!-- Horizontal scroll items -->
+  <rect x="20" y="355" width="96" height="128" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="24" y="495" class="small">Title 1</text>
+
+  <rect x="126" y="355" width="96" height="128" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="130" y="495" class="small">Title 2</text>
+
+  <rect x="232" y="355" width="96" height="128" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="236" y="495" class="small">Title 3</text>
+
+  <!-- SECTION: Hot Serials -->
+  <text x="12" y="550" class="title">热门连载 / Hot Serials</text>
+  <rect x="12" y="560" width="351" height="260" fill="#FFFFFF" stroke="#DDDDDD" rx="8"/>
+
+  <!-- 2-column grid -->
+  <!-- Row 1 -->
+  <rect x="20" y="575" width="80" height="110" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="110" y="595" class="label">Title A</text>
+  <text x="110" y="613" class="small">Tag / Chapter</text>
+
+  <rect x="20" y="695" width="80" height="110" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="110" y="715" class="label">Title B</text>
+  <text x="110" y="733" class="small">Tag / Chapter</text>
+
+  <!-- Right column -->
+  <rect x="210" y="575" width="80" height="110" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="300" y="595" class="label">Title C</text>
+  <text x="300" y="613" class="small">Tag / Chapter</text>
+
+  <rect x="210" y="695" width="80" height="110" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="300" y="715" class="label">Title D</text>
+  <text x="300" y="733" class="small">Tag / Chapter</text>
+
+  <!-- SECTION: Daily Updates -->
+  <text x="12" y="850" class="title">每日更新 / Daily Updates</text>
+  <rect x="12" y="860" width="351" height="310" fill="#FFFFFF" stroke="#DDDDDD" rx="8"/>
+
+  <!-- List rows -->
+  <!-- Row 1 -->
+  <rect x="20" y="875" width="60" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="90" y="895" class="label">Comic 1</text>
+  <text x="90" y="913" class="small">Chapter X</text>
+  <text x="90" y="931" class="small">Today 10:00</text>
+
+  <!-- Row 2 -->
+  <rect x="20" y="965" width="60" height="80" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="90" y="985" class="label">Comic 2</text>
+  <text x="90" y="1003" class="small">Chapter X</text>
+  <text x="90" y="1021" class="small">Today 09:30</text>
+
+  <!-- SECTION: Rankings -->
+  <text x="12" y="1205" class="title">排行榜 / Rankings</text>
+  <rect x="12" y="1215" width="351" height="280" fill="#FFFFFF" stroke="#DDDDDD" rx="8"/>
+
+  <!-- Tabs -->
+  <rect x="20" y="1225" width="60" height="24" fill="#FFFFFF" stroke="#CCCCCC" rx="12"/>
+  <text x="28" y="1242" class="small">综合</text>
+
+  <rect x="84" y="1225" width="60" height="24" fill="#F5F5F5" stroke="#CCCCCC" rx="12"/>
+  <text x="92" y="1242" class="small">男生</text>
+
+  <rect x="148" y="1225" width="60" height="24" fill="#F5F5F5" stroke="#CCCCCC" rx="12"/>
+  <text x="156" y="1242" class="small">女生</text>
+
+  <!-- Ranking list -->
+  <text x="24" y="1270" class="label">1.</text>
+  <rect x="40" y="1255" width="44" height="60" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="92" y="1275" class="label">Title 1</text>
+  <text x="92" y="1293" class="small">Views 1.2M</text>
+
+  <text x="24" y="1345" class="label">2.</text>
+  <rect x="40" y="1330" width="44" height="60" fill="#FFFFFF" stroke="#CCCCCC" rx="4"/>
+  <text x="92" y="1350" class="label">Title 2</text>
+  <text x="92" y="1368" class="small">Views 980K</text>
+
+  <!-- FOOTER -->
+  <rect x="0" y="1480" width="375" height="120" fill="#FFFFFF" stroke="#DDDDDD"/>
+  <text x="12" y="1505" class="small">关于我们 | 条款 | 隐私</text>
+</svg>
