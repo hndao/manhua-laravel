@@ -56,6 +56,30 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | CDN URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL is used to generate full URLs for images stored in CDN/R2.
+    | Set this to your CDN domain (e.g., https://cdn.truyenvie.com).
+    |
+    */
+
+    'cdn_url' => env('CDN_URL', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | CDN Page URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL is used to generate full URLs for page images.
+    | Format: https://cdn.truyenvie.com/qq-comics/images/{comic_id}/{chapter_id}/{image_url}
+    |
+    */
+
+    'cdn_page_url' => env('CDN_PAGE_URL', null),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

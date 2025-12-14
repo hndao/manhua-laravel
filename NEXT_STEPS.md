@@ -95,6 +95,10 @@ Create `.env.local`:
 NEXT_PUBLIC_API_URL=http://127.0.0.1:8000/api/v1
 ```
 
+**Note:** Images are already served with full CDN URLs from the API:
+- `cover_image`: `https://cdn.truyenvie.com/qq-comics/thumbnails/649568.jpg`
+- No need to prepend CDN URL in frontend!
+
 ### 4. Run Development Servers
 
 **Laravel (Terminal 1):**

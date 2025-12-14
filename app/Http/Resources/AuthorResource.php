@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,7 +20,7 @@ class AuthorResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'bio' => $this->bio,
-            'avatar' => $this->avatar,
+            'avatar' => ImageHelper::cdnUrl($this->avatar),
             'website' => $this->website,
 
             // Pivot data (role from author_comic table)

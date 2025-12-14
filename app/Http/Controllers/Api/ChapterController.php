@@ -28,6 +28,7 @@ class ChapterController extends Controller
     public function pages(Chapter $chapter)
     {
         $pages = $chapter->pages()
+            ->with('chapter')
             ->orderBy('page_number', 'asc')
             ->get();
 

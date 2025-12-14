@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,7 +20,7 @@ class ComicResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,
-            'cover_image' => $this->cover_image,
+            'cover_image' => ImageHelper::cdnUrl($this->cover_image),
             'status' => $this->status,
             'type' => $this->type,
             'total_chapters' => $this->total_chapters,

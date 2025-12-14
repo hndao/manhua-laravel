@@ -250,3 +250,14 @@ All API responses are transformed using Laravel API Resources for consistent JSO
 All single resources are wrapped in `{"data": {...}}`.
 All collections are wrapped in `{"data": [...]}` with pagination metadata.
 
+### CDN Image URLs:
+All image URLs are automatically converted to full CDN URLs:
+- **cover_image**: `https://cdn.truyenvie.com/qq-comics/thumbnails/649568.jpg`
+- **avatar**: `https://cdn.truyenvie.com/authors/avatar.jpg`
+- **image_url** (pages): `https://cdn.truyenvie.com/qq-comics/pages/image.jpg`
+
+Configure CDN URL in `.env`:
+```
+CDN_URL=https://cdn.truyenvie.com
+```
+

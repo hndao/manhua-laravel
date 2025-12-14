@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,11 @@ class PageResource extends JsonResource
             'id' => $this->id,
             'chapter_id' => $this->chapter_id,
             'page_number' => $this->page_number,
-            'image_url' => $this->image_url,
+            'image_url' => ImageHelper::pageUrl(
+                $this->chapter->comic_id,
+                $this->chapter->chapter_number,
+                $this->image_url
+            ),
             'width' => $this->width,
             'height' => $this->height,
 
