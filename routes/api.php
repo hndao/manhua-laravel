@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuthorController;
 use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\ComicController;
@@ -9,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 // Public routes (no authentication required)
 Route::prefix('v1')->group(function () {
+    // Authentication
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+
     // Comics
     Route::get('/comics', [ComicController::class, 'index']);
     Route::get('/comics/{comic:slug}', [ComicController::class, 'show']);
@@ -34,9 +39,9 @@ Route::prefix('v1')->group(function () {
 
 // Protected routes (require authentication)
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    // Auth
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user', [AuthController::class, 'user']);
 
     // User bookmarks
     Route::get('/bookmarks', [ComicController::class, 'bookmarks']);
