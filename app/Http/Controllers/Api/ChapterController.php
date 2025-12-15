@@ -17,7 +17,13 @@ class ChapterController extends Controller
         // Increment views
         $chapter->increment('views');
 
-        $chapter->load(['comic.authors', 'comic.genres']);
+        $chapter->load([
+            'comic.authors',
+            'comic.genres',
+            'comic.chapters' => function ($query) {
+                $query->orderBy('chapter_number', 'asc');
+            }
+        ]);
 
         return new ChapterResource($chapter);
     }

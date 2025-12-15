@@ -45,9 +45,11 @@ return [
     | considered expired. This will override any values set in the token's
     | "expires_at" attribute, but first-party sessions are not affected.
     |
+    | Set to 7 days (10080 minutes) to match frontend cookie expiration
+    |
     */
 
-    'expiration' => null,
+    'expiration' => 10080, // 7 days
 
     /*
     |--------------------------------------------------------------------------

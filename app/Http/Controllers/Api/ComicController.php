@@ -82,19 +82,56 @@ class ComicController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('q');
+        $status = $request->get('status');
+        $genreSlug = $request->get('genre');
+        $sortBy = $request->get('sort_by', 'relevance');
 
-        if (empty($query)) {
-            return response()->json(['data' => []]);
+        // Build the query
+        $comicsQuery = Comic::with(['authors', 'genres']);
+
+        // Apply text search if query exists
+        if (!empty($query)) {
+            $comicsQuery->where(function ($q) use ($query) {
+                $q->where('title', 'ILIKE', "%{$query}%")
+                  ->orWhere('description', 'ILIKE', "%{$query}%")
+                  ->orWhereHas('authors', function ($authorQuery) use ($query) {
+                      $authorQuery->where('name', 'ILIKE', "%{$query}%");
+                  });
+            });
         }
 
-        $comics = Comic::with(['authors', 'genres'])
-            ->where('title', 'ILIKE', "%{$query}%")
-            ->orWhere('description', 'ILIKE', "%{$query}%")
-            ->orWhereHas('authors', function ($q) use ($query) {
-                $q->where('name', 'ILIKE', "%{$query}%");
-            })
-            ->limit(20)
-            ->get();
+        // Filter by status
+        if (!empty($status)) {
+            $comicsQuery->where('status', $status);
+        }
+
+        // Filter by genre
+        if (!empty($genreSlug)) {
+            $comicsQuery->whereHas('genres', function ($q) use ($genreSlug) {
+                $q->where('slug', $genreSlug);
+            });
+        }
+
+        // Apply sorting
+        switch ($sortBy) {
+            case 'total_views':
+                $comicsQuery->orderBy('total_views', 'desc');
+                break;
+            case 'average_rating':
+                $comicsQuery->orderBy('average_rating', 'desc');
+                break;
+            case 'created_at':
+                $comicsQuery->orderBy('created_at', 'desc');
+                break;
+            default:
+                // Default relevance sorting (by title match)
+                if (!empty($query)) {
+                    $comicsQuery->orderByRaw("CASE WHEN title ILIKE ? THEN 0 ELSE 1 END", ["%{$query}%"]);
+                }
+                break;
+        }
+
+        $comics = $comicsQuery->limit(50)->get();
 
         return ComicResource::collection($comics);
     }
@@ -112,6 +149,24 @@ class ComicController extends Controller
             ->paginate(20);
 
         return BookmarkResource::collection($bookmarks);
+    }
+
+    /**
+     * Check if comic is bookmarked
+     */
+    public function checkBookmark(Request $request, Comic $comic)
+    {
+        $user = $request->user();
+
+        $isBookmarked = $user->bookmarks()
+            ->where('comic_id', $comic->id)
+            ->exists();
+
+        return response()->json([
+            'data' => [
+                'is_bookmarked' => $isBookmarked,
+            ],
+        ]);
     }
 
     /**
@@ -168,6 +223,11 @@ class ComicController extends Controller
 
         $user = $request->user();
 
+        // Check if this is a new reading history entry (first time reading this comic)
+        $isNewRead = !$user->readingHistory()
+            ->where('comic_id', $validated['comic_id'])
+            ->exists();
+
         $user->readingHistory()->updateOrCreate(
             [
                 'comic_id' => $validated['comic_id'],
@@ -179,7 +239,24 @@ class ComicController extends Controller
             ]
         );
 
+        // Increment comic total_views only for new reads
+        if ($isNewRead) {
+            Comic::where('id', $validated['comic_id'])->increment('total_views');
+        }
+
         return response()->json(['message' => 'Reading history updated']);
+    }
+
+    /**
+     * Delete reading history for a comic
+     */
+    public function deleteHistory(Request $request, Comic $comic)
+    {
+        $user = $request->user();
+
+        $user->readingHistory()->where('comic_id', $comic->id)->delete();
+
+        return response()->json(['message' => 'Reading history deleted']);
     }
 
     /**

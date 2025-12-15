@@ -28,8 +28,11 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        // Create token for the user
-        $token = $user->createToken('auth-token')->plainTextToken;
+        // Create access token (expires in 7 days)
+        $accessToken = $user->createToken('access-token', ['*'], now()->addDays(7))->plainTextToken;
+
+        // Create refresh token (expires in 30 days)
+        $refreshToken = $user->createToken('refresh-token', ['refresh'], now()->addDays(30))->plainTextToken;
 
         return response()->json([
             'message' => 'User registered successfully',
@@ -40,7 +43,9 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'created_at' => $user->created_at,
                 ],
-                'token' => $token,
+                'access_token' => $accessToken,
+                'refresh_token' => $refreshToken,
+                'expires_in' => 7 * 24 * 60 * 60, // 7 days in seconds
             ],
         ], 201);
     }
@@ -66,8 +71,11 @@ class AuthController extends Controller
         // Revoke all previous tokens
         $user->tokens()->delete();
 
-        // Create new token
-        $token = $user->createToken('auth-token')->plainTextToken;
+        // Create access token (expires in 7 days)
+        $accessToken = $user->createToken('access-token', ['*'], now()->addDays(7))->plainTextToken;
+
+        // Create refresh token (expires in 30 days)
+        $refreshToken = $user->createToken('refresh-token', ['refresh'], now()->addDays(30))->plainTextToken;
 
         return response()->json([
             'message' => 'Login successful',
@@ -78,7 +86,9 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'created_at' => $user->created_at,
                 ],
-                'token' => $token,
+                'access_token' => $accessToken,
+                'refresh_token' => $refreshToken,
+                'expires_in' => 7 * 24 * 60 * 60, // 7 days in seconds
             ],
         ]);
     }
@@ -107,6 +117,42 @@ class AuthController extends Controller
                 'name' => $request->user()->name,
                 'email' => $request->user()->email,
                 'created_at' => $request->user()->created_at,
+            ],
+        ]);
+    }
+
+    /**
+     * Refresh access token using refresh token
+     */
+    public function refresh(Request $request)
+    {
+        $user = $request->user();
+
+        // Verify the current token has 'refresh' ability
+        if (!$request->user()->currentAccessToken()->can('refresh')) {
+            return response()->json([
+                'message' => 'Invalid refresh token',
+            ], 401);
+        }
+
+        // Delete the old refresh token
+        $request->user()->currentAccessToken()->delete();
+
+        // Delete all access tokens (optional - for security)
+        $user->tokens()->where('name', 'access-token')->delete();
+
+        // Create new access token (expires in 7 days)
+        $accessToken = $user->createToken('access-token', ['*'], now()->addDays(7))->plainTextToken;
+
+        // Create new refresh token (expires in 30 days)
+        $refreshToken = $user->createToken('refresh-token', ['refresh'], now()->addDays(30))->plainTextToken;
+
+        return response()->json([
+            'message' => 'Token refreshed successfully',
+            'data' => [
+                'access_token' => $accessToken,
+                'refresh_token' => $refreshToken,
+                'expires_in' => 7 * 24 * 60 * 60, // 7 days in seconds
             ],
         ]);
     }

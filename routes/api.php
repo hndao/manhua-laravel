@@ -41,16 +41,19 @@ Route::prefix('v1')->group(function () {
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user', [AuthController::class, 'user']);
 
     // User bookmarks
     Route::get('/bookmarks', [ComicController::class, 'bookmarks']);
+    Route::get('/bookmarks/{comic}/check', [ComicController::class, 'checkBookmark']);
     Route::post('/bookmarks/{comic}', [ComicController::class, 'addBookmark']);
     Route::delete('/bookmarks/{comic}', [ComicController::class, 'removeBookmark']);
 
     // Reading history
     Route::get('/history', [ComicController::class, 'history']);
     Route::post('/history', [ComicController::class, 'updateHistory']);
+    Route::delete('/history/{comic}', [ComicController::class, 'deleteHistory']);
 
     // Ratings
     Route::post('/comics/{comic}/rate', [ComicController::class, 'rate']);
