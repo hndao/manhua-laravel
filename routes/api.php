@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Route;
 
 // Public routes (no authentication required)
 Route::prefix('v1')->group(function () {
-    // Authentication
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+    // Authentication (with reCAPTCHA protection)
+    Route::post('/register', [AuthController::class, 'register'])->middleware('recaptcha');
+    Route::post('/login', [AuthController::class, 'login'])->middleware('recaptcha');
 
     // Comics
     Route::get('/comics', [ComicController::class, 'index']);
@@ -55,7 +55,7 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::post('/history', [ComicController::class, 'updateHistory']);
     Route::delete('/history/{comic}', [ComicController::class, 'deleteHistory']);
 
-    // Ratings
+    // Ratings (with reCAPTCHA protection for submissions)
     Route::get('/comics/{comic}/rating', [ComicController::class, 'getUserRating']);
-    Route::post('/comics/{comic}/rate', [ComicController::class, 'rate']);
+    Route::post('/comics/{comic}/rate', [ComicController::class, 'rate'])->middleware('recaptcha');
 });
