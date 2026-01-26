@@ -56,5 +56,6 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::delete('/history/{comic}', [ComicController::class, 'deleteHistory']);
 
     // Ratings
+    Route::get('/comics/{comic}/rating', [ComicController::class, 'getUserRating']);
     Route::post('/comics/{comic}/rate', [ComicController::class, 'rate']);
 });

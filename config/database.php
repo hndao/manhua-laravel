@@ -20,6 +20,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Query Logging
+    |--------------------------------------------------------------------------
+    |
+    | Enable query logging to track database performance. When enabled, all
+    | queries will be logged to storage/logs/query.log and slow queries
+    | (> 100ms) will be logged to storage/logs/slow-query.log.
+    |
+    */
+
+    'log_queries' => env('DB_LOG_QUERIES', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Database Connections
     |--------------------------------------------------------------------------
     |

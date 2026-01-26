@@ -17,39 +17,60 @@ class ComicController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Comic::with(['authors', 'genres'])
-            ->withCount('chapters');
-
-        // Filter by status
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
-        }
-
-        // Filter by type
-        if ($request->has('type')) {
-            $query->where('type', $request->type);
-        }
-
-        // Filter by genre
-        if ($request->has('genre')) {
-            $query->whereHas('genres', function ($q) use ($request) {
-                $q->where('slug', $request->genre);
-            });
-        }
-
-        // Filter by featured
-        if ($request->has('featured')) {
-            $query->where('is_featured', $request->boolean('featured'));
-        }
-
-        // Sort
+        // Create cache key based on request parameters
+        $page = $request->get('page', 1);
+        $perPage = $request->get('per_page', 20);
         $sortBy = $request->get('sort_by', 'created_at');
         $sortOrder = $request->get('sort_order', 'desc');
-        $query->orderBy($sortBy, $sortOrder);
+        $status = $request->get('status', '');
+        $type = $request->get('type', '');
+        $genre = $request->get('genre', '');
+        $featured = $request->get('featured', '');
 
-        $perPage = $request->get('per_page', 20);
+        $cacheKey = sprintf(
+            'comics_list_%s_%s_%s_%s_%s_%s_%s_%s',
+            $page,
+            $perPage,
+            $sortBy,
+            $sortOrder,
+            $status,
+            $type,
+            $genre,
+            $featured
+        );
 
-        return ComicResource::collection($query->paginate($perPage));
+        // Cache for 5 minutes
+        return \Cache::remember($cacheKey, 300, function () use ($request, $perPage, $sortBy, $sortOrder) {
+            $query = Comic::with(['authors', 'genres'])
+                ->withCount('chapters');
+
+            // Filter by status
+            if ($request->has('status')) {
+                $query->where('status', $request->status);
+            }
+
+            // Filter by type
+            if ($request->has('type')) {
+                $query->where('type', $request->type);
+            }
+
+            // Filter by genre
+            if ($request->has('genre')) {
+                $query->whereHas('genres', function ($q) use ($request) {
+                    $q->where('slug', $request->genre);
+                });
+            }
+
+            // Filter by featured
+            if ($request->has('featured')) {
+                $query->where('is_featured', $request->boolean('featured'));
+            }
+
+            // Sort
+            $query->orderBy($sortBy, $sortOrder);
+
+            return ComicResource::collection($query->paginate($perPage));
+        });
     }
 
     /**
@@ -57,11 +78,18 @@ class ComicController extends Controller
      */
     public function show(Comic $comic)
     {
-        $comic->load(['authors', 'genres', 'chapters' => function ($query) {
-            $query->orderBy('chapter_number', 'asc');
-        }]);
+        // Cache comic details for 10 minutes
+        $cacheKey = "comic_detail_{$comic->slug}";
 
-        return new ComicResource($comic);
+        $comicData = \Cache::remember($cacheKey, 600, function () use ($comic) {
+            $comic->load(['authors', 'genres', 'chapters' => function ($query) {
+                $query->orderBy('chapter_number', 'asc');
+            }]);
+
+            return $comic;
+        });
+
+        return new ComicResource($comicData);
     }
 
     /**
@@ -89,13 +117,14 @@ class ComicController extends Controller
         // Build the query
         $comicsQuery = Comic::with(['authors', 'genres']);
 
-        // Apply text search if query exists
+        // Apply text search if query exists (accent-insensitive)
         if (!empty($query)) {
             $comicsQuery->where(function ($q) use ($query) {
-                $q->where('title', 'ILIKE', "%{$query}%")
-                  ->orWhere('description', 'ILIKE', "%{$query}%")
+                // Use unaccent() for accent-insensitive search
+                $q->whereRaw('unaccent(title) ILIKE unaccent(?)', ["%{$query}%"])
+                  ->orWhereRaw('unaccent(description) ILIKE unaccent(?)', ["%{$query}%"])
                   ->orWhereHas('authors', function ($authorQuery) use ($query) {
-                      $authorQuery->where('name', 'ILIKE', "%{$query}%");
+                      $authorQuery->whereRaw('unaccent(name) ILIKE unaccent(?)', ["%{$query}%"]);
                   });
             });
         }
@@ -124,9 +153,9 @@ class ComicController extends Controller
                 $comicsQuery->orderBy('created_at', 'desc');
                 break;
             default:
-                // Default relevance sorting (by title match)
+                // Default relevance sorting (by title match, accent-insensitive)
                 if (!empty($query)) {
-                    $comicsQuery->orderByRaw("CASE WHEN title ILIKE ? THEN 0 ELSE 1 END", ["%{$query}%"]);
+                    $comicsQuery->orderByRaw("CASE WHEN unaccent(title) ILIKE unaccent(?) THEN 0 ELSE 1 END", ["%{$query}%"]);
                 }
                 break;
         }
@@ -257,6 +286,35 @@ class ComicController extends Controller
         $user->readingHistory()->where('comic_id', $comic->id)->delete();
 
         return response()->json(['message' => 'Reading history deleted']);
+    }
+
+    /**
+     * Get user's rating for a comic
+     */
+    public function getUserRating(Request $request, Comic $comic)
+    {
+        $user = $request->user();
+
+        $rating = $user->ratings()
+            ->where('comic_id', $comic->id)
+            ->first();
+
+        if (!$rating) {
+            return response()->json([
+                'data' => [
+                    'has_rated' => false,
+                    'rating' => null,
+                ],
+            ]);
+        }
+
+        return response()->json([
+            'data' => [
+                'has_rated' => true,
+                'rating' => $rating->rating,
+                'review' => $rating->review,
+            ],
+        ]);
     }
 
     /**

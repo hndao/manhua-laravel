@@ -14,18 +14,25 @@ class ChapterController extends Controller
      */
     public function show(Chapter $chapter)
     {
-        // Increment views
+        // Increment views (only once per request)
         $chapter->increment('views');
 
-        $chapter->load([
-            'comic.authors',
-            'comic.genres',
-            'comic.chapters' => function ($query) {
-                $query->orderBy('chapter_number', 'asc');
-            }
-        ]);
+        // Cache chapter details for 10 minutes
+        $cacheKey = "chapter_detail_{$chapter->id}";
 
-        return new ChapterResource($chapter);
+        $chapterData = \Cache::remember($cacheKey, 600, function () use ($chapter) {
+            $chapter->load([
+                'comic.authors',
+                'comic.genres',
+                'comic.chapters' => function ($query) {
+                    $query->orderBy('chapter_number', 'asc');
+                }
+            ]);
+
+            return $chapter;
+        });
+
+        return new ChapterResource($chapterData);
     }
 
     /**

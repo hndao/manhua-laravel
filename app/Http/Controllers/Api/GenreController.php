@@ -15,9 +15,12 @@ class GenreController extends Controller
      */
     public function index()
     {
-        $genres = Genre::withCount('comics')
-            ->orderBy('name', 'asc')
-            ->get();
+        // Cache genres list for 10 minutes
+        $genres = \Cache::remember('genres_list', 600, function () {
+            return Genre::withCount('comics')
+                ->orderBy('name', 'asc')
+                ->get();
+        });
 
         return GenreResource::collection($genres);
     }
