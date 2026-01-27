@@ -14,6 +14,14 @@ Route::prefix('v1')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->middleware('recaptcha');
     Route::post('/login', [AuthController::class, 'login'])->middleware('recaptcha');
 
+    // Email verification
+    Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
+    Route::post('/resend-verification', [AuthController::class, 'resendVerificationCode']);
+
+    // Social authentication
+    Route::get('/auth/{provider}', [AuthController::class, 'redirectToProvider']);
+    Route::get('/auth/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
+
     // Comics
     Route::get('/comics', [ComicController::class, 'index']);
     Route::get('/comics/{comic:slug}', [ComicController::class, 'show']);

@@ -13,11 +13,9 @@ return new class extends Migration
     {
         // Add index on slug column for faster lookups
         // Slug is already unique, but adding explicit index improves performance
-        if (!$this->indexExists('comics', 'comics_slug_index')) {
-            Schema::table('comics', function (Blueprint $table) {
-                $table->index('slug', 'comics_slug_index');
-            });
-        }
+        $this->createIndexIfNotExists('comics', 'comics_slug_index', function (Blueprint $table) {
+            $table->index('slug', 'comics_slug_index');
+        });
     }
 
     /**
@@ -29,6 +27,23 @@ return new class extends Migration
             Schema::table('comics', function (Blueprint $table) {
                 $table->dropIndex('comics_slug_index');
             });
+        }
+    }
+
+    /**
+     * Create index if it doesn't exist (with SQLite error handling)
+     */
+    private function createIndexIfNotExists(string $table, string $index, callable $callback): void
+    {
+        if (!$this->indexExists($table, $index)) {
+            try {
+                Schema::table($table, $callback);
+            } catch (\Exception $e) {
+                // Silently ignore if index already exists (for SQLite)
+                if (!str_contains($e->getMessage(), 'already exists')) {
+                    throw $e;
+                }
+            }
         }
     }
 
@@ -47,6 +62,12 @@ return new class extends Migration
                 [$table, $index]
             );
             return count($result) > 0;
+        }
+
+        // For SQLite (testing)
+        if ($connection->getDriverName() === 'sqlite') {
+            // SQLite doesn't have information_schema, just return false to allow index creation
+            return false;
         }
 
         // For MySQL

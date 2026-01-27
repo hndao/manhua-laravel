@@ -12,80 +12,73 @@ return new class extends Migration
     public function up(): void
     {
         // Add indexes to comics table (skip if exists)
-        if (!$this->indexExists('comics', 'comics_deleted_at_index')) {
-            Schema::table('comics', function (Blueprint $table) {
-                $table->index('deleted_at', 'comics_deleted_at_index');
-            });
-        }
+        $this->createIndexIfNotExists('comics', 'comics_deleted_at_index', function (Blueprint $table) {
+            $table->index('deleted_at', 'comics_deleted_at_index');
+        });
 
-        if (!$this->indexExists('comics', 'comics_created_at_index')) {
-            Schema::table('comics', function (Blueprint $table) {
-                $table->index('created_at', 'comics_created_at_index');
-            });
-        }
+        $this->createIndexIfNotExists('comics', 'comics_created_at_index', function (Blueprint $table) {
+            $table->index('created_at', 'comics_created_at_index');
+        });
 
-        if (!$this->indexExists('comics', 'comics_status_index')) {
-            Schema::table('comics', function (Blueprint $table) {
-                $table->index('status', 'comics_status_index');
-            });
-        }
+        $this->createIndexIfNotExists('comics', 'comics_status_index', function (Blueprint $table) {
+            $table->index('status', 'comics_status_index');
+        });
 
-        if (!$this->indexExists('comics', 'comics_deleted_created_index')) {
-            Schema::table('comics', function (Blueprint $table) {
-                $table->index(['deleted_at', 'created_at'], 'comics_deleted_created_index');
-            });
-        }
+        $this->createIndexIfNotExists('comics', 'comics_deleted_created_index', function (Blueprint $table) {
+            $table->index(['deleted_at', 'created_at'], 'comics_deleted_created_index');
+        });
 
         // Add indexes to chapters table
-        if (!$this->indexExists('chapters', 'chapters_deleted_at_index')) {
-            Schema::table('chapters', function (Blueprint $table) {
-                $table->index('deleted_at', 'chapters_deleted_at_index');
-            });
-        }
+        $this->createIndexIfNotExists('chapters', 'chapters_deleted_at_index', function (Blueprint $table) {
+            $table->index('deleted_at', 'chapters_deleted_at_index');
+        });
 
-        if (!$this->indexExists('chapters', 'chapters_comic_id_index')) {
-            Schema::table('chapters', function (Blueprint $table) {
-                $table->index('comic_id', 'chapters_comic_id_index');
-            });
-        }
+        $this->createIndexIfNotExists('chapters', 'chapters_comic_id_index', function (Blueprint $table) {
+            $table->index('comic_id', 'chapters_comic_id_index');
+        });
 
-        if (!$this->indexExists('chapters', 'chapters_comic_deleted_index')) {
-            Schema::table('chapters', function (Blueprint $table) {
-                $table->index(['comic_id', 'deleted_at'], 'chapters_comic_deleted_index');
-            });
-        }
+        $this->createIndexIfNotExists('chapters', 'chapters_comic_deleted_index', function (Blueprint $table) {
+            $table->index(['comic_id', 'deleted_at'], 'chapters_comic_deleted_index');
+        });
 
         // Add indexes to comic_genre table
-        if (!$this->indexExists('comic_genre', 'comic_genre_comic_id_index')) {
-            Schema::table('comic_genre', function (Blueprint $table) {
-                $table->index('comic_id', 'comic_genre_comic_id_index');
-            });
-        }
+        $this->createIndexIfNotExists('comic_genre', 'comic_genre_comic_id_index', function (Blueprint $table) {
+            $table->index('comic_id', 'comic_genre_comic_id_index');
+        });
 
-        if (!$this->indexExists('comic_genre', 'comic_genre_genre_id_index')) {
-            Schema::table('comic_genre', function (Blueprint $table) {
-                $table->index('genre_id', 'comic_genre_genre_id_index');
-            });
-        }
+        $this->createIndexIfNotExists('comic_genre', 'comic_genre_genre_id_index', function (Blueprint $table) {
+            $table->index('genre_id', 'comic_genre_genre_id_index');
+        });
 
         // Add indexes to author_comic table
-        if (!$this->indexExists('author_comic', 'author_comic_comic_id_index')) {
-            Schema::table('author_comic', function (Blueprint $table) {
-                $table->index('comic_id', 'author_comic_comic_id_index');
-            });
-        }
+        $this->createIndexIfNotExists('author_comic', 'author_comic_comic_id_index', function (Blueprint $table) {
+            $table->index('comic_id', 'author_comic_comic_id_index');
+        });
 
-        if (!$this->indexExists('author_comic', 'author_comic_author_id_index')) {
-            Schema::table('author_comic', function (Blueprint $table) {
-                $table->index('author_id', 'author_comic_author_id_index');
-            });
-        }
+        $this->createIndexIfNotExists('author_comic', 'author_comic_author_id_index', function (Blueprint $table) {
+            $table->index('author_id', 'author_comic_author_id_index');
+        });
 
         // Add indexes to genres table
-        if (!$this->indexExists('genres', 'genres_name_index')) {
-            Schema::table('genres', function (Blueprint $table) {
-                $table->index('name', 'genres_name_index');
-            });
+        $this->createIndexIfNotExists('genres', 'genres_name_index', function (Blueprint $table) {
+            $table->index('name', 'genres_name_index');
+        });
+    }
+
+    /**
+     * Create index if it doesn't exist (with SQLite error handling)
+     */
+    private function createIndexIfNotExists(string $table, string $index, callable $callback): void
+    {
+        if (!$this->indexExists($table, $index)) {
+            try {
+                Schema::table($table, $callback);
+            } catch (\Exception $e) {
+                // Silently ignore if index already exists (for SQLite)
+                if (!str_contains($e->getMessage(), 'already exists')) {
+                    throw $e;
+                }
+            }
         }
     }
 
@@ -104,6 +97,12 @@ return new class extends Migration
                 [$table, $index]
             );
             return count($result) > 0;
+        }
+
+        // For SQLite (testing)
+        if ($connection->getDriverName() === 'sqlite') {
+            // SQLite doesn't have information_schema, just return false to allow index creation
+            return false;
         }
 
         // For MySQL

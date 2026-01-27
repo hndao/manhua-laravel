@@ -12,8 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Enable the unaccent extension for accent-insensitive search
-        DB::statement('CREATE EXTENSION IF NOT EXISTS unaccent');
+        // Enable the unaccent extension for accent-insensitive search (PostgreSQL only)
+        if (Schema::getConnection()->getDriverName() === 'pgsql') {
+            DB::statement('CREATE EXTENSION IF NOT EXISTS unaccent');
+        }
     }
 
     /**
@@ -21,7 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Drop the unaccent extension
-        DB::statement('DROP EXTENSION IF EXISTS unaccent');
+        // Drop the unaccent extension (PostgreSQL only)
+        if (Schema::getConnection()->getDriverName() === 'pgsql') {
+            DB::statement('DROP EXTENSION IF EXISTS unaccent');
+        }
     }
 };
